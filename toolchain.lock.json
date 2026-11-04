@@ -1,0 +1,5 @@
+{
+  "engine": {"url": "https://github.com/coop-deluxe/sm64coopdx.git", "commit": "8cd6e5977d9f920d51ca71f2c61801d019ed79c6"},
+  "emsdk": {"url": "https://github.com/emscripten-core/emsdk.git", "commit": "d7b4130688bfa348392b921ab04015aa15c4f154", "version": "4.0.23"},
+  "lua": {"url": "https://www.lua.org/ftp/lua-5.3.6.tar.gz", "version": "5.3.6", "sha256": "fc5fd69bb8736323f026672b1b7235da613d7177e72558893a0bdcd320466d60"}
+}

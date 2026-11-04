@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="rom-download-url" content="">
+  <meta name="coop-relay" content="">
+  <title>SM64 CoopDX Web</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <canvas id="canvas" width="960" height="540" tabindex="0" aria-label="Juego de Super Mario 64"></canvas>
+
+    <section id="placeholder" aria-labelledby="game-title">
+      <div class="setup">
+        <h1 id="game-title">SM64 CoopDX</h1>
+        <p id="source-note">Selecciona tu ROM USA en formato .z64.</p>
+        <label id="rom-label" for="rom">Archivo del juego</label>
+        <input id="rom" type="file" accept=".z64">
+        <button class="primary" id="start" type="button" disabled>Jugar</button>
+        <p id="status" role="status">Esperando el archivo del juego</p>
+        <details>
+          <summary>Registro técnico</summary>
+          <pre id="log"></pre>
+        </details>
+      </div>
+    </section>
+
+    <div id="touch-controls" aria-label="Controles táctiles" hidden>
+      <div class="touch-pad">
+        <button data-input="0x40000" aria-label="Arriba">↑</button>
+        <button data-input="0x10000" aria-label="Izquierda">←</button>
+        <button data-input="0x80000" aria-label="Abajo">↓</button>
+        <button data-input="0x20000" aria-label="Derecha">→</button>
+      </div>
+      <div class="touch-actions">
+        <button data-input="0x1000" aria-label="Pausa">Start</button>
+        <button data-input="0x2000" aria-label="Agacharse">Z</button>
+        <button data-input="0x4000" aria-label="Atacar">B</button>
+        <button data-input="0x8000" aria-label="Saltar">A</button>
+        <button data-input="0x0002" aria-label="Cámara a la izquierda">C←</button>
+        <button data-input="0x0001" aria-label="Cámara a la derecha">C→</button>
+      </div>
+    </div>
+    <p id="display-status" role="status" hidden></p>
+    <div id="game-controls" aria-label="Controles de la página" hidden>
+      <span id="save-status" role="status">Guardado local</span>
+      <button id="save-now" type="button" hidden>Guardar</button>
+      <button id="enable-audio" type="button" hidden>Activar sonido</button>
+      <button id="online-menu" type="button" aria-expanded="false" aria-controls="online-panel">Online</button>
+      <button id="fullscreen" type="button">Pantalla completa</button>
+    </div>
+    <section id="online-panel" aria-label="Partida online" hidden>
+      <p id="online-status" role="status"></p>
+      <button id="public-room" type="button">Sala pública</button>
+      <button id="invite-room" type="button">Invitar amigos</button>
+      <button id="solo-room" type="button">Jugar solo</button>
+      <label id="invite-label" hidden>Enlace de invitación <input id="invite-link" type="url" readonly></label>
+    </section>
+  </main>
+  <script src="sm64coopdx.js"></script>
+  <script src="storage.js"></script>
+  <script src="online.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

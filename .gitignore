@@ -1,0 +1,12 @@
+.tools/
+vendor/
+private/
+build/
+__pycache__/
+*.pyc
+.DS_Store
+reports/*.log
+reports/*.png
+reports/browser-smoke.json
+reports/rom-validation.json
+node_modules/
