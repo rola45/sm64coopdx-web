@@ -334,7 +334,7 @@ index 1eb9488..e834ee7 100644
      for (u16 i = 0; i < MAX_PLAYERS; i++) {
          memset(&sAddr[i], 0, sizeof(struct sockaddr_in6));
 diff --git a/src/pc/pc_main.c b/src/pc/pc_main.c
-index 0d4f9f7..cf9a01c 100644
+index 0d4f9f7..e9fadf8 100644
 --- a/src/pc/pc_main.c
 +++ b/src/pc/pc_main.c
 @@ -1,3 +1,7 @@
@@ -399,7 +399,7 @@ index 0d4f9f7..cf9a01c 100644
  }
  
  void* main_game_init(UNUSED void* dummy) {
-@@ -500,7 +526,54 @@ void* main_game_init(UNUSED void* dummy) {
+@@ -500,7 +526,62 @@ void* main_game_init(UNUSED void* dummy) {
      return NULL;
  }
  
@@ -408,7 +408,15 @@ index 0d4f9f7..cf9a01c 100644
 +static unsigned sWebPhase = 0;
 +EMSCRIPTEN_KEEPALIVE unsigned web_frame_count(void) { return sWebFrames; }
 +EMSCRIPTEN_KEEPALIVE unsigned web_phase(void) { return sWebPhase; }
++static bool sWebExitRequested;
++EMSCRIPTEN_KEEPALIVE void web_request_exit(void) { sWebExitRequested = true; }
++EMSCRIPTEN_KEEPALIVE void web_open_menu(void) {
++    if (gNetworkPlayerLocal == NULL || gDjuiInMainMenu) { return; }
++    extern void djui_open_pause_menu(void);
++    djui_open_pause_menu();
++}
 +static void web_frame(void) {
++    if (sWebExitRequested) { game_exit(); return; }
 +    const double tickMs = 1000.0 / 30.0;
 +    static double lastTime;
 +    static double pendingMs;
@@ -454,7 +462,7 @@ index 0d4f9f7..cf9a01c 100644
      // handle terminal arguments
      if (!parse_cli_opts(argc, argv)) { return 0; }
  
-@@ -526,10 +599,21 @@ int main(int argc, char *argv[]) {
+@@ -526,10 +607,21 @@ int main(int argc, char *argv[]) {
      fs_init(gCLIOpts.savePath[0] ? gCLIOpts.savePath : sys_user_path());
  #endif
  
@@ -476,7 +484,7 @@ index 0d4f9f7..cf9a01c 100644
      select_graphics_backend();
  
      // create the window almost straight away
-@@ -550,6 +634,9 @@ int main(int argc, char *argv[]) {
+@@ -550,6 +642,9 @@ int main(int argc, char *argv[]) {
          }
      }
  
@@ -486,7 +494,7 @@ index 0d4f9f7..cf9a01c 100644
      // start the thread for setting up the game
      bool threadSuccess = false;
      if (!gCLIOpts.hideLoadingScreen && !gCLIOpts.headless) {
-@@ -563,6 +650,9 @@ int main(int argc, char *argv[]) {
+@@ -563,6 +658,9 @@ int main(int argc, char *argv[]) {
          main_game_init(NULL); // failsafe incase threading doesn't work
      }
  
@@ -496,7 +504,7 @@ index 0d4f9f7..cf9a01c 100644
      // initialize sm64 data and controllers
      thread5_game_loop(NULL);
  
-@@ -571,6 +661,9 @@ int main(int argc, char *argv[]) {
+@@ -571,6 +669,9 @@ int main(int argc, char *argv[]) {
  
      loading_screen_reset();
  
@@ -506,7 +514,7 @@ index 0d4f9f7..cf9a01c 100644
      // initialize djui
      djui_init();
      djui_unicode_init();
-@@ -583,6 +676,9 @@ int main(int argc, char *argv[]) {
+@@ -583,6 +684,9 @@ int main(int argc, char *argv[]) {
          djui_open_update_panel();
      }
  
@@ -516,7 +524,7 @@ index 0d4f9f7..cf9a01c 100644
      // initialize network
      if (gCLIOpts.network == NT_CLIENT) {
          network_set_system(NS_SOCKET);
-@@ -610,6 +706,12 @@ int main(int argc, char *argv[]) {
+@@ -610,6 +714,12 @@ int main(int argc, char *argv[]) {
          network_init(NT_NONE, false);
      }
  
@@ -529,7 +537,7 @@ index 0d4f9f7..cf9a01c 100644
      // main loop
      while (true) {
          debug_context_reset();
-@@ -631,5 +733,6 @@ int main(int argc, char *argv[]) {
+@@ -631,5 +741,6 @@ int main(int argc, char *argv[]) {
          djui_lua_profiler_update();
      }
  

@@ -18,6 +18,13 @@
         <p id="source-note">Selecciona tu ROM USA en formato .z64.</p>
         <label id="rom-label" for="rom">Archivo del juego</label>
         <input id="rom" type="file" accept=".z64">
+        <details id="mods">
+          <summary>Mods y trucos</summary>
+          <p>Los mods seleccionados se aplican al iniciar una partida en solitario.</p>
+          <label><input type="checkbox" value="faster-swimming.lua"> Nado rápido</label>
+          <label><input type="checkbox" value="day-night-cycle"> Ciclo día y noche</label>
+          <label><input type="checkbox" value="cheats.lua"> Trucos (menú de mods)</label>
+        </details>
         <button class="primary" id="start" type="button" disabled>Jugar</button>
         <p id="status" role="status">Esperando el archivo del juego</p>
         <details>
@@ -49,6 +56,8 @@
       <button id="save-now" type="button" hidden>Guardar</button>
       <button id="enable-audio" type="button" hidden>Activar sonido</button>
       <button id="online-menu" type="button" aria-expanded="false" aria-controls="online-panel">Online</button>
+      <button id="native-menu" type="button">Menú</button>
+      <button id="quit-game" type="button">Salir</button>
       <button id="fullscreen" type="button">Pantalla completa</button>
     </div>
     <section id="online-panel" aria-label="Partida online" hidden>

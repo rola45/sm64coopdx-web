@@ -27,3 +27,7 @@ LDFLAGS := -O2 -g2 --emit-symbol-map -sASSERTIONS=1 -sUSE_SDL=2 -sUSE_ZLIB=1 -sM
 
 LDFLAGS += --preload-file lang@/resources/lang --preload-file palettes@/resources/palettes \
   --preload-file dynos/packs@/resources/dynos/packs
+
+LDFLAGS += --preload-file mods/faster-swimming.lua@/resources/mods/faster-swimming.lua \
+  --preload-file mods/day-night-cycle@/resources/mods/day-night-cycle \
+  --preload-file mods/cheats.lua@/resources/mods/cheats.lua

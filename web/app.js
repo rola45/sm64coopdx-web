@@ -274,9 +274,18 @@ start.addEventListener('click', async () => {
       saveStatus.textContent = 'Almacenamiento no disponible. Esta sesión será temporal.';
       message(error.message);
     }
+    // CoopDX applies command-line options after reading an existing config.
+    if (!game.FS.analyzePath('/user/sm64config.txt').exists) {
+      game.FS.writeFile('/user/sm64config.txt', '\n');
+    }
     status.textContent = 'Arrancando el motor…';
     const args = ['--savepath', '/user', '--width', '960', '--height', '540', '--playercount', '16', '--disable-mods'];
-    if (relayEndpoint) {
+    const mods = [...document.querySelectorAll('#mods input:checked')];
+    document.querySelector('#online-menu').hidden = mods.length > 0;
+    for (const mod of mods) args.push('--enable-mod', mod.value);
+    if (mods.length) {
+      reportOnline('Jugando solo con mods');
+    } else if (relayEndpoint) {
       status.textContent = 'Entrando a la partida…';
       try {
         game.coopTransport = await connectCoop(defaultRoom, reportOnline);
@@ -381,3 +390,9 @@ async function enterFullscreen() {
     }
   }
 }
+
+document.querySelector('#native-menu').addEventListener('click', () => {
+  canvas.focus();
+  runtime._web_open_menu();
+});
+document.querySelector('#quit-game').addEventListener('click', () => runtime._web_request_exit());
