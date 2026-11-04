@@ -109,10 +109,15 @@ pre { max-height: 12rem; overflow: auto; white-space: pre-wrap; overflow-wrap: a
     gap: .4rem;
     pointer-events: none;
   }
+  #touch-controls, .touch-pad, .touch-actions, #touch-controls button {
+    touch-action: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
   #touch-controls button {
     pointer-events: auto;
-    touch-action: none;
-    user-select: none;
+    -webkit-tap-highlight-color: transparent;
     padding: .25rem;
     background: #191f30e8;
   }
