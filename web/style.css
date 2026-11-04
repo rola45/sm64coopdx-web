@@ -27,14 +27,17 @@ canvas {
   position: absolute;
   inset: 0;
   display: grid;
-  place-items: center;
+  place-items: start center;
   overflow: auto;
-  padding: 1rem;
+  padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right))
+    max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
   background: #141827;
 }
 
 .setup {
   width: min(100%, 23rem);
+  min-width: 0;
+  margin-block: auto;
   display: grid;
   gap: .8rem;
 }
@@ -97,7 +100,6 @@ pre { max-height: 12rem; overflow: auto; white-space: pre-wrap; overflow-wrap: a
     bottom: auto;
   }
   #save-status { display: none; }
-  #display-status { top: calc(env(safe-area-inset-top) + 3.5rem); }
   #touch-controls {
     display: flex;
     justify-content: space-between;
@@ -123,10 +125,6 @@ pre { max-height: 12rem; overflow: auto; white-space: pre-wrap; overflow-wrap: a
   .touch-pad button:first-child { grid-column: 2; }
   .touch-pad button:nth-child(2) { grid-column: 1; }
 }
-@media (any-pointer: coarse) and (orientation: portrait) {
-  #touch-controls { bottom: max(12dvh, env(safe-area-inset-bottom)); }
-}
-
 #online-panel {
   position: absolute;
   right: max(.6rem, env(safe-area-inset-right));
@@ -142,10 +140,72 @@ pre { max-height: 12rem; overflow: auto; white-space: pre-wrap; overflow-wrap: a
   background: #131827;
 }
 #invite-link { width: 100%; margin-top: .4rem; }
-@media (any-pointer: coarse) {
+@media (any-pointer: coarse), (max-width: 600px) {
+  main:has(#game-controls:not([hidden])) {
+    grid-template: "toolbar" auto "status" auto "game" minmax(0, 1fr) "touch" auto / minmax(0, 1fr);
+    place-items: stretch;
+    padding: max(.4rem, env(safe-area-inset-top)) max(.4rem, env(safe-area-inset-right))
+      max(.4rem, env(safe-area-inset-bottom)) max(.4rem, env(safe-area-inset-left));
+  }
+
+  #game-controls {
+    grid-area: toolbar;
+    position: static;
+    justify-content: center;
+    gap: .3rem;
+  }
+
+  #game-controls button { padding-inline: .5rem; }
+  #save-status { display: none; }
+
+  #display-status {
+    grid-area: status;
+    position: static;
+    padding: .25rem;
+  }
+
+  #game-view {
+    grid-area: game;
+    display: grid;
+    place-items: center;
+    min-width: 0;
+    min-height: 0;
+    container-type: size;
+  }
+
+  canvas {
+    width: min(100cqw, 177.78cqh);
+    height: min(100cqh, 56.25cqw);
+  }
+
+  #touch-controls {
+    grid-area: touch;
+    position: static;
+    padding-block: .4rem;
+  }
+
   #online-panel {
-    top: calc(max(.4rem, env(safe-area-inset-top)) + 3.25rem);
-    bottom: auto;
+    grid-area: game;
+    position: relative;
+    inset: auto;
+    place-self: start end;
+    z-index: 1;
+    max-height: 100%;
+  }
+}
+
+@media (any-pointer: coarse) and (orientation: landscape) {
+  main:has(#game-controls:not([hidden])) {
+    grid-template: "toolbar toolbar toolbar" auto "status status status" auto
+      "left game right" minmax(0, 1fr) / auto minmax(0, 1fr) auto;
+  }
+
+  #touch-controls { display: contents; }
+  .touch-pad { grid-area: left; }
+  .touch-actions { grid-area: right; }
+  .touch-pad, .touch-actions {
+    align-self: center;
+    padding-inline: .2rem;
   }
 }
 
@@ -157,3 +217,24 @@ pre { max-height: 12rem; overflow: auto; white-space: pre-wrap; overflow-wrap: a
   margin: 0;
 }
 #mods p { margin-top: .5rem; }
+
+@media (orientation: portrait) and (min-height: 480px) and (max-width: 600px) {
+  main:has(#game-controls:not([hidden])) {
+    grid-template-rows: auto auto auto auto;
+    align-content: center;
+  }
+
+  #game-view { aspect-ratio: 16 / 9; }
+}
+
+@media (any-pointer: coarse) and (orientation: landscape) and (max-width: 720px) {
+  main:has(#game-controls:not([hidden])) {
+    grid-template: "toolbar" auto "status" auto "game" minmax(0, 1fr) / minmax(0, 1fr);
+  }
+
+  #touch-controls {
+    display: flex;
+    position: absolute;
+    padding-block: 0;
+  }
+}
