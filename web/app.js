@@ -327,6 +327,9 @@ start.addEventListener('click', async () => {
   }
 });
 const touch = document.querySelector('#touch-controls');
+for (const type of ['contextmenu', 'selectstart']) {
+  touch.addEventListener(type, event => event.preventDefault());
+}
 const touches = new Map();
 function updateTouch() {
   let mask = 0;
