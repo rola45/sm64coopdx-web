@@ -233,15 +233,7 @@ start.addEventListener('click', async () => {
     if (typeof createSM64 !== 'function') throw Error('No se encontró el motor compilado. Revisa el build local.');
     status.textContent = 'Preparando WebAssembly…';
     active = true;
-    const engineParts = await Promise.all(["wasm-aa", "wasm-ab", "wasm-ac", "wasm-ad", "wasm-ae", "wasm-af", "wasm-ag", "wasm-ah", "wasm-ai", "wasm-aj", "wasm-ak", "wasm-al", "wasm-am", "wasm-an", "wasm-ao", "wasm-ap", "wasm-aq"].map(async name => {
-      const response = await fetch(name);
-      if (!response.ok) throw Error('No se pudo descargar el motor.');
-      return response.arrayBuffer();
-    }));
-    const engineStream = new Blob(engineParts).stream().pipeThrough(new DecompressionStream('gzip'));
-    const wasmBinary = await new Response(engineStream).arrayBuffer();
     const game = runtime ||= await createSM64({
-      wasmBinary,
       canvas,
       SDL2: audioContext ? {audioContext} : undefined,
       print: message,
@@ -282,9 +274,18 @@ start.addEventListener('click', async () => {
       saveStatus.textContent = 'Almacenamiento no disponible. Esta sesión será temporal.';
       message(error.message);
     }
+    // CoopDX applies command-line options after reading an existing config.
+    if (!game.FS.analyzePath('/user/sm64config.txt').exists) {
+      game.FS.writeFile('/user/sm64config.txt', '\n');
+    }
     status.textContent = 'Arrancando el motor…';
     const args = ['--savepath', '/user', '--width', '960', '--height', '540', '--playercount', '16', '--disable-mods'];
-    if (relayEndpoint) {
+    const mods = [...document.querySelectorAll('#mods input:checked')];
+    document.querySelector('#online-menu').hidden = mods.length > 0;
+    for (const mod of mods) args.push('--enable-mod', mod.value);
+    if (mods.length) {
+      reportOnline('Jugando solo con mods');
+    } else if (relayEndpoint) {
       status.textContent = 'Entrando a la partida…';
       try {
         game.coopTransport = await connectCoop(defaultRoom, reportOnline);
@@ -389,3 +390,9 @@ async function enterFullscreen() {
     }
   }
 }
+
+document.querySelector('#native-menu').addEventListener('click', () => {
+  canvas.focus();
+  runtime._web_open_menu();
+});
+document.querySelector('#quit-game').addEventListener('click', () => runtime._web_request_exit());

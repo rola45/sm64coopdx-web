@@ -81,7 +81,7 @@ var ENVIRONMENT_IS_SHELL = !ENVIRONMENT_IS_WEB && !ENVIRONMENT_IS_NODE && !ENVIR
 
 // --pre-jses are emitted after the Module integration code, so that they can
 // refer to Module (if they choose; they can also define Module)
-// include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmp9muu9gcj.js
+// include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmptz0p7xvb.js
 if (!Module["expectedDataFileDownloads"]) Module["expectedDataFileDownloads"] = 0;
 
 Module["expectedDataFileDownloads"]++;
@@ -168,6 +168,11 @@ Module["expectedDataFileDownloads"]++;
       Module["FS_createPath"]("/resources/dynos/packs", "Coop Cafe Pipe", true, true);
       Module["FS_createPath"]("/resources/dynos/packs", "Fixed Smoke", true, true);
       Module["FS_createPath"]("/resources", "lang", true, true);
+      Module["FS_createPath"]("/resources", "mods", true, true);
+      Module["FS_createPath"]("/resources/mods", "day-night-cycle", true, true);
+      Module["FS_createPath"]("/resources/mods/day-night-cycle", "actors", true, true);
+      Module["FS_createPath"]("/resources/mods/day-night-cycle", "data", true, true);
+      Module["FS_createPath"]("/resources/mods/day-night-cycle", "sound", true, true);
       Module["FS_createPath"]("/resources", "palettes", true, true);
       for (var file of metadata["files"]) {
         var name = file["filename"];
@@ -274,47 +279,127 @@ Module["expectedDataFileDownloads"]++;
       "start": 211210,
       "end": 226948
     }, {
-      "filename": "/resources/palettes/Luigi.ini",
+      "filename": "/resources/mods/cheats.lua",
       "start": 226948,
-      "end": 227266
+      "end": 238021
+    }, {
+      "filename": "/resources/mods/day-night-cycle/a-utils.lua",
+      "start": 238021,
+      "end": 241911
+    }, {
+      "filename": "/resources/mods/day-night-cycle/actors/dnc_skybox_geo.bin",
+      "start": 241911,
+      "end": 2856914
+    }, {
+      "filename": "/resources/mods/day-night-cycle/b-constants.lua",
+      "start": 2856914,
+      "end": 2861504
+    }, {
+      "filename": "/resources/mods/day-night-cycle/b-time.lua",
+      "start": 2861504,
+      "end": 2868144
+    }, {
+      "filename": "/resources/mods/day-night-cycle/data/bhvBird.bhv",
+      "start": 2868144,
+      "end": 2868265
+    }, {
+      "filename": "/resources/mods/day-night-cycle/data/bhvBirdsSoundLoop.bhv",
+      "start": 2868265,
+      "end": 2868342
+    }, {
+      "filename": "/resources/mods/day-night-cycle/data/bhvButterfly.bhv",
+      "start": 2868342,
+      "end": 2868480
+    }, {
+      "filename": "/resources/mods/day-night-cycle/data/bhvDNCNoSkybox.bhv",
+      "start": 2868480,
+      "end": 2868515
+    }, {
+      "filename": "/resources/mods/day-night-cycle/data/bhvDNCSkybox.bhv",
+      "start": 2868515,
+      "end": 2868628
+    }, {
+      "filename": "/resources/mods/day-night-cycle/main.lua",
+      "start": 2868628,
+      "end": 2902526
+    }, {
+      "filename": "/resources/mods/day-night-cycle/skybox.lua",
+      "start": 2902526,
+      "end": 2904895
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_grass.m64",
+      "start": 2904895,
+      "end": 2907948
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_hot.m64",
+      "start": 2907948,
+      "end": 2909969
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_inside_castle.m64",
+      "start": 2909969,
+      "end": 2912274
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_slide.m64",
+      "start": 2912274,
+      "end": 2915872
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_snow.m64",
+      "start": 2915872,
+      "end": 2923136
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_underground.m64",
+      "start": 2923136,
+      "end": 2925560
+    }, {
+      "filename": "/resources/mods/day-night-cycle/sound/night_level_water.m64",
+      "start": 2925560,
+      "end": 2932145
+    }, {
+      "filename": "/resources/mods/faster-swimming.lua",
+      "start": 2932145,
+      "end": 2932846
+    }, {
+      "filename": "/resources/palettes/Luigi.ini",
+      "start": 2932846,
+      "end": 2933164
     }, {
       "filename": "/resources/palettes/Mario.ini",
-      "start": 227266,
-      "end": 227584
+      "start": 2933164,
+      "end": 2933482
     }, {
       "filename": "/resources/palettes/Toad.ini",
-      "start": 227584,
-      "end": 227908
+      "start": 2933482,
+      "end": 2933806
     }, {
       "filename": "/resources/palettes/Waluigi.ini",
-      "start": 227908,
-      "end": 228234
+      "start": 2933806,
+      "end": 2934132
     }, {
       "filename": "/resources/palettes/Wario.ini",
-      "start": 228234,
-      "end": 228560
+      "start": 2934132,
+      "end": 2934458
     } ],
-    "remote_package_size": 228560
+    "remote_package_size": 2934458
   });
 })();
 
-// end include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmp9muu9gcj.js
-// include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmpbdnoe79e.js
+// end include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmptz0p7xvb.js
+// include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmpvh95vvea.js
 // All the pre-js content up to here must remain later on, we need to run
 // it.
 if ((typeof ENVIRONMENT_IS_WASM_WORKER != "undefined" && ENVIRONMENT_IS_WASM_WORKER) || (typeof ENVIRONMENT_IS_PTHREAD != "undefined" && ENVIRONMENT_IS_PTHREAD) || (typeof ENVIRONMENT_IS_AUDIO_WORKLET != "undefined" && ENVIRONMENT_IS_AUDIO_WORKLET)) Module["preRun"] = [];
 
 var necessaryPreJSTasks = Module["preRun"].slice();
 
-// end include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmpbdnoe79e.js
-// include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmpkatxg7zi.js
+// end include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmpvh95vvea.js
+// include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmp_95pbgbr.js
 if (!Module["preRun"]) throw "Module.preRun should exist because file support used it; did a pre-js delete it?";
 
 necessaryPreJSTasks.forEach(task => {
   if (Module["preRun"].indexOf(task) < 0) throw "All preRun tasks that exist before user pre-js code should remain after; did you replace Module or modify Module.preRun?";
 });
 
-// end include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmpkatxg7zi.js
+// end include: /var/folders/lc/_tx73rn94fd5gftqbf1l4mt80000gn/T/tmp_95pbgbr.js
 var arguments_ = [];
 
 var thisProgram = "./this.program";
@@ -9983,6 +10068,10 @@ var _web_frame_count = Module["_web_frame_count"] = makeInvalidEarlyAccess("_web
 
 var _web_phase = Module["_web_phase"] = makeInvalidEarlyAccess("_web_phase");
 
+var _web_request_exit = Module["_web_request_exit"] = makeInvalidEarlyAccess("_web_request_exit");
+
+var _web_open_menu = Module["_web_open_menu"] = makeInvalidEarlyAccess("_web_open_menu");
+
 var _main = Module["_main"] = makeInvalidEarlyAccess("_main");
 
 var _fflush = makeInvalidEarlyAccess("_fflush");
@@ -10043,6 +10132,8 @@ function assignWasmExports(wasmExports) {
   assert(typeof wasmExports["malloc"] != "undefined", "missing Wasm export: malloc");
   assert(typeof wasmExports["web_frame_count"] != "undefined", "missing Wasm export: web_frame_count");
   assert(typeof wasmExports["web_phase"] != "undefined", "missing Wasm export: web_phase");
+  assert(typeof wasmExports["web_request_exit"] != "undefined", "missing Wasm export: web_request_exit");
+  assert(typeof wasmExports["web_open_menu"] != "undefined", "missing Wasm export: web_open_menu");
   assert(typeof wasmExports["__main_argc_argv"] != "undefined", "missing Wasm export: __main_argc_argv");
   assert(typeof wasmExports["fflush"] != "undefined", "missing Wasm export: fflush");
   assert(typeof wasmExports["web_set_touch_buttons"] != "undefined", "missing Wasm export: web_set_touch_buttons");
@@ -10072,6 +10163,8 @@ function assignWasmExports(wasmExports) {
   _malloc = createExportWrapper("malloc", 1);
   _web_frame_count = Module["_web_frame_count"] = createExportWrapper("web_frame_count", 0);
   _web_phase = Module["_web_phase"] = createExportWrapper("web_phase", 0);
+  _web_request_exit = Module["_web_request_exit"] = createExportWrapper("web_request_exit", 0);
+  _web_open_menu = Module["_web_open_menu"] = createExportWrapper("web_open_menu", 0);
   _main = Module["_main"] = createExportWrapper("__main_argc_argv", 2);
   _fflush = createExportWrapper("fflush", 1);
   _web_set_touch_buttons = Module["_web_set_touch_buttons"] = createExportWrapper("web_set_touch_buttons", 1);
